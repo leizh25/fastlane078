@@ -1,0 +1,22 @@
+# ios/fastlane/Fastfile
+default_platform(:ios)
+
+platform :ios do
+  lane :build_debug do
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "fastlane078.xcodeproj",
+      team_id: ENV["FASTLANE_TEAM_ID"]
+    )
+
+    gym(
+      workspace: "fastlane078.xcworkspace",
+      scheme: "fastlane078",
+      configuration: "Debug",
+      export_method: "development",
+      output_directory: "build",
+      clean: true,
+      silent: true
+    )
+  end
+end
